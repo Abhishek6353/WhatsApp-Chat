@@ -1,0 +1,11 @@
+.DS_Store
+
+*.xcworkspace
+*.xcuserdata
+*.xcuserdatad
+*.xcuserstate
+
+
+Pods/
+
+GoogleService-Info.plist
