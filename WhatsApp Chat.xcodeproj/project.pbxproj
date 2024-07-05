@@ -25,6 +25,7 @@
 		4628592E2C387831006954D6 /* ChatTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4628592A2C387831006954D6 /* ChatTableHeaderView.xib */; };
 		4628592F2C387831006954D6 /* TextChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628592B2C387831006954D6 /* TextChatTableViewCell.swift */; };
 		462859302C387831006954D6 /* ChatTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628592C2C387831006954D6 /* ChatTableHeaderView.swift */; };
+		462859342C388C6D006954D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 462859332C388C6D006954D6 /* GoogleService-Info.plist */; };
 		46B459A52C3872C000D72477 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B459A42C3872C000D72477 /* AppDelegate.swift */; };
 		46B459A72C3872C000D72477 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B459A62C3872C000D72477 /* SceneDelegate.swift */; };
 		46B459AE2C3872C000D72477 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46B459AD2C3872C000D72477 /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		4628592A2C387831006954D6 /* ChatTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatTableHeaderView.xib; sourceTree = "<group>"; };
 		4628592B2C387831006954D6 /* TextChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextChatTableViewCell.swift; sourceTree = "<group>"; };
 		4628592C2C387831006954D6 /* ChatTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableHeaderView.swift; sourceTree = "<group>"; };
+		462859332C388C6D006954D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		46B459A12C3872C000D72477 /* WhatsApp Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhatsApp Chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		46B459A42C3872C000D72477 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46B459A62C3872C000D72477 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				46B459BE2C38738000D72477 /* Fonts */,
 				46B459AF2C3872C000D72477 /* LaunchScreen.storyboard */,
 				46B459B22C3872C000D72477 /* Info.plist */,
+				462859332C388C6D006954D6 /* GoogleService-Info.plist */,
 			);
 			path = "WhatsApp Chat";
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				46B459D92C38746100D72477 /* Roboto-Thin.ttf in Resources */,
 				46B459D52C38746100D72477 /* Roboto-Bold.ttf in Resources */,
 				46B459D82C38746100D72477 /* Roboto-MediumItalic.ttf in Resources */,
+				462859342C388C6D006954D6 /* GoogleService-Info.plist in Resources */,
 				4628590C2C3876C4006954D6 /* LoginVC.xib in Resources */,
 				46B459AE2C3872C000D72477 /* Assets.xcassets in Resources */,
 				4628591A2C387788006954D6 /* HomeViewController.xib in Resources */,
