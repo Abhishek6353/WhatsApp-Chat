@@ -78,6 +78,8 @@ class ChatViewController: UIViewController {
         scrollToBottom()
 
         messageTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        lblName.text = viewModel.receiverData.name
     }
     
     func scrollToBottom() {

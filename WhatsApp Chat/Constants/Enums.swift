@@ -9,4 +9,5 @@ import Foundation
 
 enum PreferenceKeys: String {
     case verificationID
+    case isLogin
 }

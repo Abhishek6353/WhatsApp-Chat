@@ -15,6 +15,7 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var messageStatusImageView: UIImageView!
     @IBOutlet weak var messageTypeImageView: UIImageView!
+    @IBOutlet weak var lastMessageStackView: UIStackView!
     
 
     override func awakeFromNib() {

@@ -20,12 +20,12 @@ struct Chats {
 
 protocol ChatProtocol {
     var router: RouterProtocol { get }
-//    var messages: [String] { get set }
 }
 
 class ChatViewModel: ChatProtocol {
     
     var router: RouterProtocol
+    var receiverData: ContactModel
     var chatData: [ChatModel] = [
         
         ChatModel(date: "01 july 2022", data:
@@ -57,7 +57,8 @@ class ChatViewModel: ChatProtocol {
                   
     
 
-    init(router: RouterProtocol) {
+    init(router: RouterProtocol, receiverData: ContactModel) {
         self.router = router
+        self.receiverData = receiverData
     }
 }

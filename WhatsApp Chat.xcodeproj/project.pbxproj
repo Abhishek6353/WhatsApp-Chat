@@ -52,6 +52,10 @@
 		46B459F62C38765100D72477 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B459F32C38765100D72477 /* WelcomeViewModel.swift */; };
 		46B459F72C38765100D72477 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B459F42C38765100D72477 /* WelcomeVC.swift */; };
 		46B45F312C3AC649002B2190 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B45F302C3AC649002B2190 /* Toast.swift */; };
+		46B45F342C3B14C8002B2190 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B45F332C3B14C8002B2190 /* ContactsViewModel.swift */; };
+		46B45F372C3B150E002B2190 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B45F352C3B150E002B2190 /* ContactsViewController.swift */; };
+		46B45F382C3B150E002B2190 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46B45F362C3B150E002B2190 /* ContactsViewController.xib */; };
+		46B45F3A2C3B177A002B2190 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B45F392C3B177A002B2190 /* ContactModel.swift */; };
 		4852F1A6F630316BD5144AD6 /* Pods_WhatsApp_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F72CC1EBFBB9CD583BE3F5E /* Pods_WhatsApp_Chat.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +107,10 @@
 		46B459F32C38765100D72477 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		46B459F42C38765100D72477 /* WelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		46B45F302C3AC649002B2190 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		46B45F332C3B14C8002B2190 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
+		46B45F352C3B150E002B2190 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		46B45F362C3B150E002B2190 /* ContactsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
+		46B45F392C3B177A002B2190 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		70EF0CB066CA4D2B1FD6F60E /* Pods-WhatsApp Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsApp Chat.release.xcconfig"; path = "Target Support Files/Pods-WhatsApp Chat/Pods-WhatsApp Chat.release.xcconfig"; sourceTree = "<group>"; };
 		9F72CC1EBFBB9CD583BE3F5E /* Pods_WhatsApp_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatsApp_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCED0A4DA56A4D9905B6C01 /* Pods-WhatsApp Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsApp Chat.debug.xcconfig"; path = "Target Support Files/Pods-WhatsApp Chat/Pods-WhatsApp Chat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -242,6 +250,7 @@
 				4628590E2C3876D7006954D6 /* Verify OTP */,
 				462859152C387777006954D6 /* Home */,
 				4628591C2C38779C006954D6 /* Chat */,
+				46B45F322C3B14AB002B2190 /* Contacts */,
 			);
 			path = "Controllers+Models";
 			sourceTree = "<group>";
@@ -327,6 +336,17 @@
 			path = Welcome;
 			sourceTree = "<group>";
 		};
+		46B45F322C3B14AB002B2190 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				46B45F352C3B150E002B2190 /* ContactsViewController.swift */,
+				46B45F362C3B150E002B2190 /* ContactsViewController.xib */,
+				46B45F332C3B14C8002B2190 /* ContactsViewModel.swift */,
+				46B45F392C3B177A002B2190 /* ContactModel.swift */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
 		979180D10FADEC003E0E8774 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -397,6 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46B459DA2C38746100D72477 /* Roboto-Medium.ttf in Resources */,
+				46B45F382C3B150E002B2190 /* ContactsViewController.xib in Resources */,
 				4628592D2C387831006954D6 /* TextChatTableViewCell.xib in Resources */,
 				4628592E2C387831006954D6 /* ChatTableHeaderView.xib in Resources */,
 				46B459D32C38746100D72477 /* Roboto-ThinItalic.ttf in Resources */,
@@ -476,8 +497,10 @@
 				462859122C3876EC006954D6 /* OTPViewController.swift in Sources */,
 				4628591B2C387788006954D6 /* HomeViewModel.swift in Sources */,
 				46B459F72C38765100D72477 /* WelcomeVC.swift in Sources */,
+				46B45F372C3B150E002B2190 /* ContactsViewController.swift in Sources */,
 				462859282C387808006954D6 /* ContactTableViewCell.swift in Sources */,
 				462859302C387831006954D6 /* ChatTableHeaderView.swift in Sources */,
+				46B45F3A2C3B177A002B2190 /* ContactModel.swift in Sources */,
 				46B459F62C38765100D72477 /* WelcomeViewModel.swift in Sources */,
 				462859202C3877B8006954D6 /* ChatViewModel.swift in Sources */,
 				462859192C387788006954D6 /* HomeViewController.swift in Sources */,
@@ -488,6 +511,7 @@
 				46B459E32C3875BC00D72477 /* Structs.swift in Sources */,
 				46B459DF2C38756F00D72477 /* Router.swift in Sources */,
 				4628590D2C3876C4006954D6 /* LoginViewModel.swift in Sources */,
+				46B45F342C3B14C8002B2190 /* ContactsViewModel.swift in Sources */,
 				46B459A72C3872C000D72477 /* SceneDelegate.swift in Sources */,
 				46B459E62C3875D100D72477 /* Enums.swift in Sources */,
 				46B45F312C3AC649002B2190 /* Toast.swift in Sources */,

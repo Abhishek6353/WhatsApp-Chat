@@ -13,7 +13,9 @@ protocol RouterProtocol {
     func redirectToLogin()
     func redirectToOTP(phoneNumber: String, coutryPhoneCode: String)
     func redirectToHome()
-    func redirectToChat()
+    func redirectToChat(receiverData: ContactModel)
+    func redirectoWelcome()
+    func redirectToContact()
 }
 
 
@@ -37,8 +39,22 @@ class Router: RouterProtocol {
         SceneDelegate().sceneDelegate?.mainNav?.pushViewController(vc, animated: true)
     }
     
-    func redirectToChat() {
-        let vc = ChatViewController(viewModel: ChatViewModel(router: Router()))
+    func redirectToChat(receiverData: ContactModel) {
+        let vc = ChatViewController(viewModel: ChatViewModel(router: Router(), receiverData: receiverData))
         SceneDelegate().sceneDelegate?.mainNav?.pushViewController(vc, animated: true)
+    }
+
+    func redirectToContact() {
+        let vc = ContactsViewController(viewModel: ContactsViewModel(router: Router()))
+        SceneDelegate().sceneDelegate?.mainNav?.present(vc, animated: true)
+    }
+
+    
+    func redirectoWelcome() {
+        let vc = WelcomeVC(welcomeViewModel: WelcomeViewModel(router: Router()))
+        SceneDelegate().sceneDelegate?.mainNav = UINavigationController(rootViewController: vc)
+        SceneDelegate().sceneDelegate?.mainNav?.navigationBar.isHidden = true
+        SceneDelegate().sceneDelegate?.window?.rootViewController = SceneDelegate().sceneDelegate?.mainNav
+        SceneDelegate().sceneDelegate?.window?.makeKeyAndVisible()
     }
 }
