@@ -74,4 +74,13 @@ class Utility: NSObject {
         return maskedPhoneNumber
     }
 
+    // to validate phone number
+    class func isvalidatePhoneHavingDigitsOnly(phoneNumber: String) -> Bool
+    {
+        let charcterSet  = NSCharacterSet(charactersIn: "+0123456789").inverted
+        let inputString = phoneNumber.components(separatedBy: charcterSet)
+        let filtered = inputString.joined(separator: "")
+        return  phoneNumber == filtered
+    }
+
 }

@@ -17,3 +17,8 @@ struct URLs {
     static let termsURLStr = "https://www.apple.com/"
     static let privacyURLStr = "https://www.google.com"
 }
+
+struct ToastMessages {
+    static let enterNumber = "Please enter your phone number."
+    static let invalidNumber = "Ensure you enter a valid phone number, for example, +91 1234567890."
+}

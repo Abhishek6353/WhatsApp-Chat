@@ -10,9 +10,13 @@ import DPOTPView
 
 class OTPViewController: UIViewController {
     
+    
     //MARK: - Variables
     private var viewModel: OTPProtocol
     
+    private var countdownTimer: Timer?
+    private var remainingTime = 60
+
     
     //MARK: - Outlets
     @IBOutlet weak var otpView: DPOTPView!
@@ -20,6 +24,8 @@ class OTPViewController: UIViewController {
     @IBOutlet weak var btnVerify: UIButton!
     @IBOutlet weak var btnVerifyBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var lblCodeSentNumber: UILabel!
+    @IBOutlet weak var btnResendCode: UIButton!
+    @IBOutlet weak var lblResentCode: UILabel!
     
     
     //MARK: - init
@@ -42,7 +48,6 @@ class OTPViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         alertView.layer.cornerRadius = alertView.frame.height / 2
         btnVerify.layer.cornerRadius = btnVerify.frame.height / 2
-        btnVerify.backgroundColor = .darkButton.withAlphaComponent(0.44)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,9 +61,7 @@ class OTPViewController: UIViewController {
     }
     
     @IBAction func verifyButtonAction(_ sender: UIButton) {
-        DispatchQueue.main.async {
-            Utility.showLoadingView()
-        }
+        Utility.showLoadingView()
         viewModel.signIn(otp: otpView.text ?? "") { result in
             Utility.hideLoadingView()
             
@@ -67,21 +70,88 @@ class OTPViewController: UIViewController {
                 self.viewModel.router.redirectToHome()
                 
             case .failure(let error):
-                print(error.localizedDescription)
+                self.view.makeToast(error.localizedDescription, position: .top)
             }
         }
     }
+    
+    @IBAction func resendCodeButtonAction(_ sender: UIButton) {
+        
+        Utility.showLoadingView()
+        viewModel.verifyNumber(phoneNumber: "\(viewModel.coutryPhoneCode) \(viewModel.phoneNumber)") { result in
+            Utility.hideLoadingView()
+            
+            switch result {
+            case .success(_):
+                self.showToast(message: "A new OTP has been sent to your number. Please check your inbox.")
+            case .failure(let error):
+                self.showToast(message: error.localizedDescription)
+            }
+        }
+    }
+    
     
     //MARK: - Function
     private func configure() {
         otpView.dpOTPViewDelegate = self
         otpView.dismissOnLastEntry = true
         otpView.fontTextField = Fonts.robotoRegular.font(size: 30)
-        
+        btnVerify.backgroundColor = .darkButton.withAlphaComponent(0.44)
         alertView.isHidden = true
         
         lblCodeSentNumber.text = "Code has been send to \(viewModel.coutryPhoneCode) \(Utility.maskPhoneNumber(phoneNumber: viewModel.phoneNumber))"
+
+        startTimer()
     }
+    
+    private func startTimer() {
+        countdownTimer?.invalidate()
+        remainingTime = 60
+        btnResendCode.isEnabled = false
+        updateCountdownLabel()
+
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+
+    @objc func updateTimer() {
+        if remainingTime > 0 {
+            remainingTime -= 1
+            updateCountdownLabel()
+        } else {
+            countdownTimer?.invalidate()
+            btnResendCode.isEnabled = true
+            lblResentCode.text = "Resend OTP"
+        }
+    }
+
+    private func updateCountdownLabel() {
+        lblResentCode.attributedText = createCountdownAttributedString(remainingTime: remainingTime)
+    }
+    
+    private func showToast(message: String) {
+        self.view.makeToast(message, position: .top)
+    }
+    
+    private func createCountdownAttributedString(remainingTime: Int) -> NSAttributedString {
+        let fullText = "Resend Code in \(remainingTime) s"
+        let remainingTimeString = "\(remainingTime)"
+        
+        let attributedString = NSMutableAttributedString(string: fullText)
+        
+        let blackAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.black]
+        
+        attributedString.addAttributes(blackAttributes, range: NSRange(location: 0, length: fullText.count))
+        
+        let blueAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor._00_A_884]
+        if let timeRange = fullText.range(of: remainingTimeString) {
+            let nsRange = NSRange(timeRange, in: fullText)
+            attributedString.addAttributes(blueAttributes, range: nsRange)
+        }
+        
+        return attributedString
+    }
+
+
 }
 
 

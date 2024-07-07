@@ -14,6 +14,7 @@ protocol OTPProtocol {
     var coutryPhoneCode: String { get }
     
     func signIn(otp: String, completion: @escaping (Result<String, Error>) -> Void)
+    func verifyNumber(phoneNumber: String, completion: @escaping (Result<String, Error>) -> Void)
 }
 
 class OTPViewModel: OTPProtocol {
@@ -44,6 +45,28 @@ class OTPViewModel: OTPProtocol {
             }
             
             completion(.success("Login Successfull!"))
+        }
+    }
+    
+    func verifyNumber(phoneNumber: String, completion: @escaping (Result<String, Error>) -> Void) {
+        DispatchQueue.main.async {
+            Utility.showLoadingView()
+        }
+        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { verificationID, error in
+            Utility.hideLoadingView()
+            
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let verificationID = verificationID else {
+                completion(.failure(NSError(domain: "Something went wrong", code: -1)))
+                return
+            }
+            
+            Utility.setValuefor(verificationID, forKey: PreferenceKeys.verificationID.rawValue)
+            completion(.success(verificationID))
         }
     }
 }
