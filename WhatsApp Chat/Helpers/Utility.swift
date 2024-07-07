@@ -7,25 +7,18 @@
 
 import Foundation
 import UIKit
-import KRProgressHUD
+import SVProgressHUD
 
 class Utility: NSObject {
     
     //MARK: -  Loading View
     class func showLoadingView() {
-        KRProgressHUD
-            .set(activityIndicatorViewColors: [.primaryButton])
-            .show()
+        SVProgressHUD.show()
     }
     
-    class func showLoadingView(withTitle title: String) {
-        KRProgressHUD
-            .set(activityIndicatorViewColors: [.primaryButton])
-            .show(withMessage: title)
-    }
     
     class func hideLoadingView() {
-        KRProgressHUD.dismiss()
+        SVProgressHUD.dismiss()
     }
     
 

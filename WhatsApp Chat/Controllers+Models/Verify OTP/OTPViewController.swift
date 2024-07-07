@@ -56,7 +56,9 @@ class OTPViewController: UIViewController {
     }
     
     @IBAction func verifyButtonAction(_ sender: UIButton) {
-        Utility.showLoadingView()
+        DispatchQueue.main.async {
+            Utility.showLoadingView()
+        }
         viewModel.signIn(otp: otpView.text ?? "") { result in
             Utility.hideLoadingView()
             

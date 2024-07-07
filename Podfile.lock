@@ -1086,9 +1086,6 @@ PODS:
   - gRPC-Core/Privacy (1.62.5)
   - GTMSessionFetcher/Core (3.3.1)
   - IQKeyboardManagerSwift (7.0.3)
-  - KRActivityIndicatorView (3.0.8)
-  - KRProgressHUD (3.4.8):
-    - KRActivityIndicatorView (= 3.0.8)
   - leveldb-library (1.22.5)
   - nanopb (2.30910.0):
     - nanopb/decode (= 2.30910.0)
@@ -1097,6 +1094,9 @@ PODS:
   - nanopb/encode (2.30910.0)
   - PromisesObjC (2.4.0)
   - RecaptchaInterop (100.0.0)
+  - SVProgressHUD (2.3.1):
+    - SVProgressHUD/Core (= 2.3.1)
+  - SVProgressHUD/Core (2.3.1)
 
 DEPENDENCIES:
   - CountryPickerView
@@ -1104,7 +1104,7 @@ DEPENDENCIES:
   - FirebaseAuth
   - FirebaseFirestore
   - IQKeyboardManagerSwift
-  - KRProgressHUD
+  - SVProgressHUD
 
 SPEC REPOS:
   trunk:
@@ -1125,12 +1125,11 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
-    - KRActivityIndicatorView
-    - KRProgressHUD
     - leveldb-library
     - nanopb
     - PromisesObjC
     - RecaptchaInterop
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
@@ -1150,13 +1149,12 @@ SPEC CHECKSUMS:
   gRPC-Core: eee4be35df218649fe66d721a05a7f27a28f069b
   GTMSessionFetcher: 8a1b34ad97ebe6f909fb8b9b77fba99943007556
   IQKeyboardManagerSwift: f9c5dc36cba16ddd2e51fa7d51c34a2e083029b5
-  KRActivityIndicatorView: c5c503bf56e54834382dd926b64ff47287ca0006
-  KRProgressHUD: d0fb4e72428d312eb6966e84c543ea58fb1efbc7
   leveldb-library: e8eadf9008a61f9e1dde3978c086d2b6d9b9dc28
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
 
-PODFILE CHECKSUM: d7328f2e61a5c476d7b697a6a8fef3dc4da33f8d
+PODFILE CHECKSUM: 15556da20b26de7ea747a18cefd45da911f9c4a0
 
 COCOAPODS: 1.15.2

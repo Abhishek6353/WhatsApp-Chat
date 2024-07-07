@@ -25,7 +25,9 @@ class LoginViewModel: LoginProtocol {
     }
     
     func verifyNumber(phoneNumber: String, completion: @escaping (Result<String, Error>) -> Void) {
-        Utility.showLoadingView()
+        DispatchQueue.main.async {
+            Utility.showLoadingView()
+        }
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { verificationID, error in
             Utility.hideLoadingView()
             

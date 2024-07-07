@@ -32,7 +32,7 @@ class WelcomeVC: UIViewController, UITextViewDelegate {
     //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        initialSetup()
+        configure()
     }
     
     override func viewDidLayoutSubviews() {
@@ -47,11 +47,11 @@ class WelcomeVC: UIViewController, UITextViewDelegate {
     
     
     //MARK: - Functions
-    private func initialSetup() {
+    private func configure() {
         getPrivacyPolicyAttributedText()
     }
     
-    private func getPrivacyPolicyAttributedText() {
+    private func  getPrivacyPolicyAttributedText() {
         let attributedString = NSMutableAttributedString(string: Constants.termsAndPrivacyStr)
         let privacyPolicyRange = (attributedString.string as NSString).range(of: Constants.privacyPolicyStr)
         let termsConditionsRange = (attributedString.string as NSString).range(of: Constants.termsOfServiceStr)

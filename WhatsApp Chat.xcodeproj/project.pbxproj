@@ -51,6 +51,7 @@
 		46B459F52C38765100D72477 /* WelcomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46B459F22C38765100D72477 /* WelcomeVC.xib */; };
 		46B459F62C38765100D72477 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B459F32C38765100D72477 /* WelcomeViewModel.swift */; };
 		46B459F72C38765100D72477 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B459F42C38765100D72477 /* WelcomeVC.swift */; };
+		46B45F312C3AC649002B2190 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B45F302C3AC649002B2190 /* Toast.swift */; };
 		4852F1A6F630316BD5144AD6 /* Pods_WhatsApp_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F72CC1EBFBB9CD583BE3F5E /* Pods_WhatsApp_Chat.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,7 @@
 		46B459F22C38765100D72477 /* WelcomeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WelcomeVC.xib; sourceTree = "<group>"; };
 		46B459F32C38765100D72477 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		46B459F42C38765100D72477 /* WelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
+		46B45F302C3AC649002B2190 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		70EF0CB066CA4D2B1FD6F60E /* Pods-WhatsApp Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsApp Chat.release.xcconfig"; path = "Target Support Files/Pods-WhatsApp Chat/Pods-WhatsApp Chat.release.xcconfig"; sourceTree = "<group>"; };
 		9F72CC1EBFBB9CD583BE3F5E /* Pods_WhatsApp_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatsApp_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCED0A4DA56A4D9905B6C01 /* Pods-WhatsApp Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsApp Chat.debug.xcconfig"; path = "Target Support Files/Pods-WhatsApp Chat/Pods-WhatsApp Chat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 			children = (
 				46B459DE2C38756F00D72477 /* Router.swift */,
 				46B459E02C38758500D72477 /* Utility.swift */,
+				46B45F302C3AC649002B2190 /* Toast.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				4628590D2C3876C4006954D6 /* LoginViewModel.swift in Sources */,
 				46B459A72C3872C000D72477 /* SceneDelegate.swift in Sources */,
 				46B459E62C3875D100D72477 /* Enums.swift in Sources */,
+				46B45F312C3AC649002B2190 /* Toast.swift in Sources */,
 				462859222C3877B8006954D6 /* ChatViewController.swift in Sources */,
 				46B459DD2C38752300D72477 /* Extensions.swift in Sources */,
 			);
