@@ -1094,6 +1094,9 @@ PODS:
   - nanopb/encode (2.30910.0)
   - PromisesObjC (2.4.0)
   - RecaptchaInterop (100.0.0)
+  - SDWebImage (5.19.2):
+    - SDWebImage/Core (= 5.19.2)
+  - SDWebImage/Core (5.19.2)
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
@@ -1104,6 +1107,7 @@ DEPENDENCIES:
   - FirebaseAuth
   - FirebaseFirestore
   - IQKeyboardManagerSwift
+  - SDWebImage
   - SVProgressHUD
 
 SPEC REPOS:
@@ -1129,6 +1133,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - RecaptchaInterop
+    - SDWebImage
     - SVProgressHUD
 
 SPEC CHECKSUMS:
@@ -1153,8 +1158,9 @@ SPEC CHECKSUMS:
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  SDWebImage: dfe95b2466a9823cf9f0c6d01217c06550d7b29a
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
 
-PODFILE CHECKSUM: 15556da20b26de7ea747a18cefd45da911f9c4a0
+PODFILE CHECKSUM: 9a2886fbc23df3accbab20fa089ab53298148a3c
 
 COCOAPODS: 1.15.2

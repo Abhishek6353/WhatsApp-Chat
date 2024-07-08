@@ -42,7 +42,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         configure()
         
-
+        viewModel.fetchFriendListner {
+            self.contactsTableView.reloadData()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -132,7 +134,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        viewModel.friendsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -141,6 +143,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.selectionStyle = .none
         
+        let data = viewModel.friendsList[indexPath.row]
+        
+        cell.data = data
         return cell
     }
     

@@ -75,12 +75,26 @@ class Utility: NSObject {
     }
 
     // to validate phone number
-    class func isvalidatePhoneHavingDigitsOnly(phoneNumber: String) -> Bool
-    {
+    class func isvalidatePhoneHavingDigitsOnly(phoneNumber: String) -> Bool {
         let charcterSet  = NSCharacterSet(charactersIn: "+0123456789").inverted
         let inputString = phoneNumber.components(separatedBy: charcterSet)
         let filtered = inputString.joined(separator: "")
         return  phoneNumber == filtered
     }
+
+    //get current time
+    class func getCurrentTime() -> Int64 {
+        let date = Date().timeIntervalSince1970 * 1000
+        return Int64(date)
+    }
+
+    
+    class func getPrivateChannelId(otherUserId : String,loginUserId : String) -> String {
+        var idArray : [String] = []
+        idArray = [otherUserId,loginUserId]
+        idArray.sort(){$0 < $1}
+        return "\(idArray.first!)_\(idArray.last!)"
+    }
+
 
 }

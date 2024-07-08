@@ -13,5 +13,6 @@ target 'WhatsApp Chat' do
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
   pod 'SVProgressHUD'
-
+  pod 'SDWebImage'
+  
 end

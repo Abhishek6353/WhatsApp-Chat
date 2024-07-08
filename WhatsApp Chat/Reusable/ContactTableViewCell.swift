@@ -6,8 +6,15 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ContactTableViewCell: UITableViewCell {
+    
+    var data: FriendsDataModel? {
+        didSet {
+            setData()
+        }
+    }
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var lblName: UILabel!
@@ -29,4 +36,16 @@ class ContactTableViewCell: UITableViewCell {
 
     }
     
+    func setData() {
+        guard let data else {
+            return
+        }
+        
+        lblName.text = data.name
+        lblMessage.text = data.message
+        
+        if let imageURL = data.profilePhotoUrl {
+            profileImageView.sd_setImage(with: URL(string: imageURL), placeholderImage: UIImage(named: "sampleProfile"))
+        }
+    }
 }

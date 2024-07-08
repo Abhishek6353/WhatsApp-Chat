@@ -25,7 +25,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DlH-hR-7Yq">
                                 <rect key="frame" x="0.0" y="0.0" width="310" height="54"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sampleProfile" translatesAutoresizingMaskIntoConstraints="NO" id="cKN-hK-0L4">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cKN-hK-0L4">
                                         <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="54" id="3Hd-cR-9ua"/>
@@ -51,11 +51,11 @@
                                                             <constraint firstAttribute="width" secondItem="YUF-WW-CvL" secondAttribute="height" multiplier="1:1" id="gx4-r8-vuv"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconImage" translatesAutoresizingMaskIntoConstraints="NO" id="1rY-XE-LpY">
-                                                        <rect key="frame" x="22" y="0.0" width="20" height="20"/>
+                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconImage" translatesAutoresizingMaskIntoConstraints="NO" id="1rY-XE-LpY">
+                                                        <rect key="frame" x="21" y="0.0" width="20" height="20"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morbi viverra urna sit amet nunc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weH-H5-gvu">
-                                                        <rect key="frame" x="44" y="0.0" width="192" height="20"/>
+                                                        <rect key="frame" x="22" y="0.0" width="214" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" name="#85959F"/>
                                                         <nil key="highlightedColor"/>
@@ -124,7 +124,6 @@
     <resources>
         <image name="iconImage" width="20" height="20"/>
         <image name="iconSent" width="17" height="16"/>
-        <image name="sampleProfile" width="54" height="54"/>
         <namedColor name="#85959F">
             <color red="0.5220000147819519" green="0.58399999141693115" blue="0.62400001287460327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

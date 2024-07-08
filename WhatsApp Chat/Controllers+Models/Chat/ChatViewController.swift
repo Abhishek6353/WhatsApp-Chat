@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ChatViewController: UIViewController {
     
@@ -53,24 +54,25 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendButtonAction(_ sender: UIButton) {
-        if sender.tag == 0 {
-                
-        } else {
-            guard let text = messageTextField.text, !text.isEmpty else { return }
-            viewModel.chatData[2].data.append(Chats(message: text, time: Utility.currentDate("hh:mm a"), type: "sent"))
-            chatTableView.reloadData()
-            scrollToBottom()
-            
-            messageTextField.text?.removeAll()
-
-        }
+//        if sender.tag == 0 {
+//                
+//        } else {
+//            guard let text = messageTextField.text, !text.isEmpty else { return }
+//            viewModel.chatData[2].data.append(Chats(message: text, time: Utility.currentDate("hh:mm a"), type: "sent"))
+//            chatTableView.reloadData()
+//            scrollToBottom()
+//            
+//            messageTextField.text?.removeAll()
+//
+//        }
+        viewModel.sendMessage(message: messageTextField.text ?? "")
     }
     
     
     //MARK: - Functions
     func configure() {
-        chatTableView.delegate = self
-        chatTableView.dataSource = self
+//        chatTableView.delegate = self
+//        chatTableView.dataSource = self
         chatTableView.showsHorizontalScrollIndicator = false
         chatTableView.showsVerticalScrollIndicator = false
         chatTableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 25, right: 0)
@@ -80,6 +82,12 @@ class ChatViewController: UIViewController {
         messageTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         lblName.text = viewModel.receiverData.name
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            viewModel.curentUserID = userID
+        }
+        viewModel.channelId = Utility.getPrivateChannelId(otherUserId: viewModel.receiverData.userID, loginUserId: viewModel.curentUserID)
+
     }
     
     func scrollToBottom() {
@@ -99,41 +107,41 @@ class ChatViewController: UIViewController {
 
 
 //MARK: - Tableview delegate functions
-extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        viewModel.chatData.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.chatData[section].data.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TextChatTableViewCell.className, for: indexPath) as? TextChatTableViewCell else {
-            return UITableViewCell()
-        }
-        cell.selectionStyle = .none
-
-        cell.chatData = viewModel.chatData[indexPath.section].data[indexPath.row]
-        
-        return cell
-    }
-    
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = Bundle.main.loadNibNamed(ChatTableHeaderView.className, owner: self, options: nil)?.first as? ChatTableHeaderView else {
-            return UIView()
-        }
-        headerView.containerView.layer.cornerRadius = 5
-        headerView.titleLabel.text = viewModel.chatData[section].date
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        34
-    }
-}
+//extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
+//    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        viewModel.chatData.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        viewModel.chatData[section].data.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: TextChatTableViewCell.className, for: indexPath) as? TextChatTableViewCell else {
+//            return UITableViewCell()
+//        }
+//        cell.selectionStyle = .none
+//
+//        cell.chatData = viewModel.chatData[indexPath.section].data[indexPath.row]
+//        
+//        return cell
+//    }
+//    
+//    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        guard let headerView = Bundle.main.loadNibNamed(ChatTableHeaderView.className, owner: self, options: nil)?.first as? ChatTableHeaderView else {
+//            return UIView()
+//        }
+//        headerView.containerView.layer.cornerRadius = 5
+//        headerView.titleLabel.text = viewModel.chatData[section].date
+//        return headerView
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        34
+//    }
+//}
 
 
 //MARK: - Textfield delegate methods
