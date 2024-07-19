@@ -11,11 +11,17 @@ import FirebaseFirestore
 protocol ChatProtocol {
     var router: RouterProtocol { get }
     var channelId: String { get }
-    var curentUserID: String! { get }
+    var curentUserID: String! { get set }
     var groupMessageData: GroupMessage? { get }
+    var receiverData: UserModel { get }
+    var chatMembewrData: ChatMemberData? { get }
     
     func sendMessage(message: String)
     func fetchGroupChat(completion: @escaping () -> Void)
+    func updateOnlineStatus(isOnline: Bool)
+    func updateUnreadCount()
+    func stopListningForGroupChat()
+    func fetchChatMemberData(completion: @escaping () -> Void)
 }
 
 
@@ -27,8 +33,9 @@ class ChatViewModel: ChatProtocol {
     var channelId : String
     var curentUserID : String!
     var groupMessageData: GroupMessage?
-    
-    
+    var chatMembewrData: ChatMemberData?
+
+    var listeners: [ListenerRegistration] = []
 
     init(router: RouterProtocol, receiverData: UserModel, channelID: String) {
         self.router = router
@@ -80,6 +87,7 @@ class ChatViewModel: ChatProtocol {
            
             
             self.addChatToGroupMessage(message: message)
+            self.addChatMemberData()
         }
     }
     
@@ -97,22 +105,36 @@ class ChatViewModel: ChatProtocol {
             Keys.serverTime : FieldValue.serverTimestamp()
         ]
             
-        chatChannelReference.document(channelId).collection(Keys.subNodeGroupMessage).document(messageDict["chatID"] as? String ?? "")
+        chatChannelReference.document(channelId).collection(Keys.subNodeGroupMessage).document(messageDict[Keys.chatID] as? String ?? "")
             .setData(messageDict) { error in
                 
                 if error == nil {
                     if needToUpdateLastMessage {
                         chatChannelReference.document(self.channelId).updateData([Keys.message : message, Keys.modifiedAt : Utility.getCurrentTime()])
                     }
-                    self.updateReadCount(messageDic: messageDict)
+                    self.updateReadCount()
                 }
             }
     }
     
-    func fetchGroupChat(completion: @escaping () -> Void) {
-        let chatChannelReference = Firestore.firestore().collection("channels")
+    func addChatMemberData() {
         
-        chatChannelReference.whereField("channelId", isEqualTo: channelId).addSnapshotListener { [weak self] querySnapshot, error in
+        for memberId in [curentUserID, receiverData.userID] {
+            let dict: [String: Any] = [
+                Keys.isOnline: memberId == curentUserID ? true : false,
+                Keys.memberId: memberId ?? "",
+                Keys.muteTill: 0,
+                Keys.roomId: channelId,
+//                Keys.unreadCount: memberId == curentUserID ? 0 : 1,
+            ]
+            
+            chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(memberId ?? "").setData(dict)
+        }
+    }
+    
+    func fetchGroupChat(completion: @escaping () -> Void) {
+        
+        let listner = chatChannelReference.whereField(Keys.channelId, isEqualTo: channelId).addSnapshotListener { [weak self] querySnapshot, error in
             guard let self = self else { return }
             
             if let error = error {
@@ -137,12 +159,13 @@ class ChatViewModel: ChatProtocol {
                 }
             }
         }
+        listeners.append(listner)
     }
     
     func fetchMessages(completion: @escaping () -> Void) {
-        let chatChannelReference = chatChannelReference.document(self.channelId).collection(Keys.GroupMessages)
+        let chatChannelReference = chatChannelReference.document(self.channelId).collection(Keys.subNodeGroupMessage)
         
-        chatChannelReference.order(by: Keys.messageTime).addSnapshotListener { [weak self] querySnapshot, error in
+       let listner = chatChannelReference.order(by: Keys.messageTime).addSnapshotListener { [weak self] querySnapshot, error in
             guard let self = self else { return }
             
             if let error = error {
@@ -175,11 +198,57 @@ class ChatViewModel: ChatProtocol {
             self.groupMessageData?.chats = Array(groupedMessages.values)
             completion()
         }
+        
+        listeners.append(listner)
     }
 
+    func fetchChatMemberData(completion: @escaping () -> Void) {
+       let listner = chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).whereField(Keys.memberId, isEqualTo: receiverData.userID).addSnapshotListener { [weak self] querySnapshot, error in
+           guard let self = self else { return }
+           
+           if let error = error {
+               print("Error fetching chat member data: \(error.localizedDescription)")
+               return
+           }
+           
+           guard let documents = querySnapshot?.documents else {
+               print("No message found of member data")
+               return
+           }
+           
+           do {
+               if let document = documents.first {
+                   chatMembewrData = try document.data(as: ChatMemberData.self)
+                   completion()
+               }
+           } catch {
+               print("Error decoding document: \(error.localizedDescription)")
+           }
+        }
+        listeners.append(listner)
+    }
     
-    func updateReadCount(messageDic : [String : Any]) {
-        
+    func updateReadCount() {
+        chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(receiverData.userID).updateData([Keys.unreadCount: FieldValue.increment(Int64(1))]) { error in
+            if let error = error {
+                print("Error updating document: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func updateOnlineStatus(isOnline: Bool) {
+        chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(curentUserID).updateData([Keys.isOnline: isOnline])
+    }
+    
+    func updateUnreadCount() {
+        chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(curentUserID).updateData([Keys.unreadCount: 0])
+    }
+    
+    func stopListningForGroupChat() {
+        for listner in listeners {
+            listner.remove()
+        }
+        listeners.removeAll()
     }
     
     func validateWhiteSpace(_ str: String?) -> Bool {
@@ -196,9 +265,5 @@ class ChatViewModel: ChatProtocol {
         }
         
         return false
-    }
-    
-    func fetchChatsListner(completion: @escaping () -> Void) {
-        
     }
 }

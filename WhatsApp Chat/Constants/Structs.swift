@@ -38,7 +38,7 @@ struct ToastMessages {
 struct Keys {
     static let users = "users"
     static let channels = "channels"
-    static let GroupMessages = "GroupMessages"
+//    static let GroupMessages = "GroupMessages"
     static let subNodeChatMemberData = "ChatMemberData"
     static let subNodeGroupMessage = "GroupMessages"
 
@@ -55,4 +55,13 @@ struct Keys {
     static let chatID = "chatID"
     static let messageType = "messageType"
     static let serverTime = "serverTime"
+    
+    static let isOnline = "isOnline"
+    static let memberId = "memberId"
+    static let memberStatus = "memberStatus"
+    static let muteTill = "muteTill"
+    static let roomId = "roomId"
+    static let unreadCount = "unreadCount"
+    
+    
 }

@@ -26,11 +26,11 @@ struct Chats: Codable {
 
 struct GroupMessage: Codable {
     var channelId: String
-    var createdAt: Int64
+    var createdAt: Int
     var isDeleted: Bool
     var memberIds: [String]
     var message: String
-    var modifiedAt: Int64
+    var modifiedAt: Int
     var receiverId: String
     var senderId: String
     var chats: [Chats]? {
@@ -38,5 +38,14 @@ struct GroupMessage: Codable {
             self.chats = self.chats?.sorted(by: { $0.date < $1.date })
         }
     }
+    
 }
 
+
+struct ChatMemberData: Codable {
+    var isOnline: Bool
+    var memberId: String
+    var muteTill: Int
+    var roomId: String
+    var unreadCount: Int
+}

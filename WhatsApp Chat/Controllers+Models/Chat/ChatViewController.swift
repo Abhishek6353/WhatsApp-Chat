@@ -11,7 +11,7 @@ import FirebaseAuth
 class ChatViewController: UIViewController {
     
     //MARK: - Variables
-    let viewModel: ChatViewModel
+    var viewModel: ChatProtocol
     
     
     //MARK: - Outlets
@@ -39,9 +39,22 @@ class ChatViewController: UIViewController {
     //MARK: - VIew lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let userID = Auth.auth().currentUser?.uid {
+            viewModel.curentUserID = userID
+        }
+        
+
         configure()
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.updateOnlineStatus(isOnline: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        viewModel.updateOnlineStatus(isOnline: false)
+        viewModel.stopListningForGroupChat()
     }
     
     override func viewWillLayoutSubviews() {
@@ -73,17 +86,20 @@ class ChatViewController: UIViewController {
         messageTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         lblName.text = viewModel.receiverData.name
+        
         if let url = URL(string: viewModel.receiverData.profilePhotoUrl) {
             profileImageView.sd_setImage(with: url)
         }
         
-        if let userID = Auth.auth().currentUser?.uid {
-            viewModel.curentUserID = userID
+        
+        viewModel.fetchChatMemberData {
+            self.lblStatus.text = self.viewModel.chatMembewrData?.isOnline ?? false ? "Online" : ""
         }
 
         viewModel.fetchGroupChat {
             self.chatTableView.reloadData()
             self.scrollToBottom()
+            self.viewModel.updateUnreadCount()
         }
     }
     
