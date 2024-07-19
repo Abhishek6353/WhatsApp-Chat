@@ -10,27 +10,30 @@ import FirebaseFirestore
 
 protocol ChatProtocol {
     var router: RouterProtocol { get }
-    var channelId: String! { get }
+    var channelId: String { get }
     var curentUserID: String! { get }
-    
+    var groupMessageData: GroupMessage? { get }
     
     func sendMessage(message: String)
+    func fetchGroupChat(completion: @escaping () -> Void)
 }
 
 
 class ChatViewModel: ChatProtocol {
     
     var router: RouterProtocol
-    var receiverData: ContactModel
+    var receiverData: UserModel
     
-    var channelId : String!
+    var channelId : String
     var curentUserID : String!
+    var groupMessageData: GroupMessage?
     
     
 
-    init(router: RouterProtocol, receiverData: ContactModel) {
+    init(router: RouterProtocol, receiverData: UserModel, channelID: String) {
         self.router = router
         self.receiverData = receiverData
+        self.channelId = channelID
     }
     
     
@@ -59,7 +62,7 @@ class ChatViewModel: ChatProtocol {
         let currentTime = Utility.getCurrentTime()
         
         let dict: [String: Any] = [
-            Keys.channelId: channelId ?? "",
+            Keys.channelId: channelId,
             Keys.createdAt: currentTime,
             Keys.isDeleted: false,
             Keys.memberIds: memberIDs,
@@ -82,7 +85,7 @@ class ChatViewModel: ChatProtocol {
     
     func addChatToGroupMessage(message: String, needToUpdateLastMessage: Bool = false) {
         
-        let chatID = chatChannelReference.document(channelId).collection(Constants.subNodeGroupMessage).document().documentID
+        let chatID = chatChannelReference.document(channelId).collection(Keys.subNodeGroupMessage).document().documentID
         
         let messageDict: [String: Any] = [
             Keys.chatID: chatID,
@@ -94,7 +97,7 @@ class ChatViewModel: ChatProtocol {
             Keys.serverTime : FieldValue.serverTimestamp()
         ]
             
-        chatChannelReference.document(channelId).collection(Constants.subNodeGroupMessage).document(messageDict["chatID"] as? String ?? "")
+        chatChannelReference.document(channelId).collection(Keys.subNodeGroupMessage).document(messageDict["chatID"] as? String ?? "")
             .setData(messageDict) { error in
                 
                 if error == nil {
@@ -105,6 +108,75 @@ class ChatViewModel: ChatProtocol {
                 }
             }
     }
+    
+    func fetchGroupChat(completion: @escaping () -> Void) {
+        let chatChannelReference = Firestore.firestore().collection("channels")
+        
+        chatChannelReference.whereField("channelId", isEqualTo: channelId).addSnapshotListener { [weak self] querySnapshot, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                print("Error fetching chat: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No data found")
+                return
+            }
+            
+            for document in documents {
+                do {
+                    let data = try document.data(as: GroupMessage.self)
+                    self.groupMessageData = data
+                    self.fetchMessages {
+                        completion()
+                    }
+                } catch {
+                    print("Error decoding document: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func fetchMessages(completion: @escaping () -> Void) {
+        let chatChannelReference = chatChannelReference.document(self.channelId).collection(Keys.GroupMessages)
+        
+        chatChannelReference.order(by: Keys.messageTime).addSnapshotListener { [weak self] querySnapshot, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                print("Error fetching chat: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No message found")
+                return
+            }
+            
+            var groupedMessages: [String: Chats] = [:]
+            
+            for document in documents {
+                do {
+                    let chatMessage = try document.data(as: ChatMessage.self)
+                    let messageDate = Utility.convertTimestamp(chatMessage.messageTime)
+                    
+                    if groupedMessages[messageDate] != nil {
+                        groupedMessages[messageDate]?.chatMessages.append(chatMessage)
+                    } else {
+                        groupedMessages[messageDate] = Chats(date: chatMessage.messageTime, chatMessages: [chatMessage])
+                    }
+                } catch {
+                    print("Error decoding chat message: \(error.localizedDescription)")
+                }
+            }
+            
+            self.groupMessageData?.chats = Array(groupedMessages.values)
+            completion()
+        }
+    }
+
     
     func updateReadCount(messageDic : [String : Any]) {
         

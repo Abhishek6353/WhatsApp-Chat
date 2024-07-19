@@ -6,14 +6,15 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class TextChatTableViewCell: UITableViewCell {
     
-//    var chatData: Chats? {
-//        didSet {
-//            setData()
-//        }
-//    }
+    var chatData: ChatMessage? {
+        didSet {
+            setData()
+        }
+    }
 
     @IBOutlet weak var chatBackgroundView: UIView!
     @IBOutlet weak var lblMessage: UILabel!
@@ -35,19 +36,21 @@ class TextChatTableViewCell: UITableViewCell {
 
     }
     
-//    func setData() {
-//        guard let data = chatData else {
-//            return
-//        }
-//        
-//        if data.type == "sent" {
-//            stackView.addArrangedSubview(emptyView)
-//            stackView.addArrangedSubview(chatBackgroundView)
-//        } else {
-//            stackView.addArrangedSubview(chatBackgroundView)
-//            stackView.addArrangedSubview(emptyView)
-//        }
-//        lblMessage.text = data.message
-//        lblTime.text = data.time
-//    }
+    func setData() {
+        guard let data = chatData else {
+            return
+        }
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        if data.senderId == uid {
+            stackView.addArrangedSubview(emptyView)
+            stackView.addArrangedSubview(chatBackgroundView)
+        } else {
+            stackView.addArrangedSubview(chatBackgroundView)
+            stackView.addArrangedSubview(emptyView)
+        }
+        lblMessage.text = data.message
+        lblTime.text = Utility.convertTimestamp(data.messageTime, format: "hh:mm")
+    }
 }

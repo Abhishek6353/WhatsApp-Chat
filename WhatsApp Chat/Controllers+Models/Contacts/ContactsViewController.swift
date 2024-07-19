@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ContactsViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class ContactsViewController: UIViewController {
     
     //MARK: - Outlets
     @IBOutlet weak var contactsTableView: UITableView!
+    @IBOutlet weak var contactCountLabel: UILabel!
     
     
     //MARK: - init
@@ -51,7 +53,7 @@ class ContactsViewController: UIViewController {
                 self.view.makeToast(error)
                 return
             }
-            
+            self.contactCountLabel.text = "\(self.viewModel.contacts.count) contcts"
             self.contactsTableView.reloadData()
         }
     }
@@ -68,16 +70,18 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.className, for: indexPath) as? ContactTableViewCell else {
             return UITableViewCell()
         }
-        cell.selectionStyle = .none
-        cell.lblDate.isHidden = true
-        cell.lastMessageStackView.isHidden = true
-        cell.lblName.text = viewModel.contacts[indexPath.row].name
+        cell.selectionStyle = .none        
+        cell.contactData = viewModel.contacts[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let receiverData = self.viewModel.contacts[indexPath.row]
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let channelId = Utility.getPrivateChannelId(otherUserId: receiverData.userID, loginUserId: userID)
+
         SceneDelegate().sceneDelegate?.mainNav?.dismiss(animated: true, completion: {
-            self.viewModel.router.redirectToChat(receiverData: self.viewModel.contacts[indexPath.row])
+            self.viewModel.router.redirectToChat(receiverData: self.viewModel.contacts[indexPath.row], channelID: channelId)
         })
     }
 }

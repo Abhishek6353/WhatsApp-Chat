@@ -11,10 +11,16 @@ struct Constants {
     static let termsAndPrivacyStr = "Read our Privacy Policy. Tap “Agree and continue” to accept the Teams of Service."
     static let privacyPolicyStr = "Privacy Policy."
     static let termsOfServiceStr = "Teams of Service."
-    static let users = "users"
-    static let channels = "channels"
-    static let subNodeChatMemberData = "ChatMemberData"
-    static let subNodeGroupMessage = "GroupMessages"
+    static let cancelStr = "Cancel"
+    static let logoutStr = "Logout"
+    static let sureToLogoutStr = "Are you sure you want to logout?"
+
+    static let libraryStr = "Library"
+    static let cameraStr = "Camera"
+    static let chooseFromStr = "Choose a picture from library or camera"
+    static let pickPhotoStr = "Pick a Photo"
+    
+
 }
 
 struct URLs {
@@ -22,16 +28,20 @@ struct URLs {
     static let privacyURLStr = "https://www.google.com"
 }
 
+
 struct ToastMessages {
     static let enterNumber = "Please enter your phone number."
     static let invalidNumber = "Ensure you enter a valid phone number, for example, +91 1234567890."
 }
 
+
 struct Keys {
     static let users = "users"
     static let channels = "channels"
     static let GroupMessages = "GroupMessages"
-    
+    static let subNodeChatMemberData = "ChatMemberData"
+    static let subNodeGroupMessage = "GroupMessages"
+
     static let channelId = "channelId"
     static let createdAt = "createdAt"
     static let isDeleted = "isDeleted"

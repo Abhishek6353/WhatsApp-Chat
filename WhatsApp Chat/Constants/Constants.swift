@@ -10,6 +10,6 @@ import FirebaseFirestore
 
 
 let db = Firestore.firestore()
-let userReference = db.collection(Constants.users)
-let chatChannelReference = db.collection(Constants.channels)
-let chatMemberData = db.collectionGroup(Constants.subNodeChatMemberData)
+let userReference = db.collection(Keys.users)
+let chatChannelReference = db.collection(Keys.channels)
+let chatMemberData = db.collectionGroup(Keys.subNodeChatMemberData)

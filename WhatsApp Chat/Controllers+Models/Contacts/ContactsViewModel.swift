@@ -7,10 +7,11 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 protocol ContactsProtocol {
     var router: RouterProtocol { get }
-    var contacts: [ContactModel] { get }
+    var contacts: [UserModel] { get }
     
     
     func fetchAllUsers(completion: @escaping (String?) -> Void)
@@ -19,7 +20,7 @@ protocol ContactsProtocol {
 class ContactsViewModel: ContactsProtocol {
     
     var router: RouterProtocol
-    var contacts: [ContactModel] = []
+    var contacts: [UserModel] = []
     
     let db = Firestore.firestore()
     
@@ -30,8 +31,9 @@ class ContactsViewModel: ContactsProtocol {
     
     
     func fetchAllUsers(completion: @escaping (String?) -> Void) {
-
-        let usersCollection = db.collection("users")
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+            
+        let usersCollection = db.collection("users").whereField("user_id", isNotEqualTo: uid)
         
         usersCollection.getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -45,12 +47,12 @@ class ContactsViewModel: ContactsProtocol {
             }
             
             // Map documents to ContactModel objects
-            var fetchedContacts: [ContactModel] = []
+            var fetchedContacts: [UserModel] = []
             
             for document in documents {
                 do {
                     // Attempt to decode document into ContactModel
-                    let contact = try document.data(as: ContactModel.self)
+                    let contact = try document.data(as: UserModel.self)
                     fetchedContacts.append(contact)
                     
                 } catch {

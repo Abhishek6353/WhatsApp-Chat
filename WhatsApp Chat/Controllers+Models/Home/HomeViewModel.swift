@@ -10,12 +10,16 @@ import FirebaseAuth
 import FirebaseFirestore
 
 
+import Foundation
+import FirebaseAuth
+
+
 protocol HomeProtocol {
     var router: RouterProtocol { get }
     var friendsList: [FriendsDataModel] { get }
     
     func signOut(completion: @escaping (Result<String, Error>) -> Void)
-    func fetchFriendListner(completion: @escaping () -> Void)
+    func fetchFriendListener(completion: @escaping () -> Void)
 }
 
 class HomeViewModel: HomeProtocol {
@@ -27,6 +31,8 @@ class HomeViewModel: HomeProtocol {
         self.router = router
     }
     
+    
+    //MARK: - Functions
     func signOut(completion: @escaping (Result<String, Error>) -> Void) {
         do {
             try Auth.auth().signOut()
@@ -37,53 +43,70 @@ class HomeViewModel: HomeProtocol {
         }
     }
     
-    func fetchFriendListner(completion: @escaping () -> Void) {
-        
+    func fetchFriendListener(completion: @escaping () -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
+        
         chatChannelReference.whereField(Keys.memberIds, arrayContains: userID).addSnapshotListener { querySnapshot, error in
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return
             }
             
-            self.friendsList = documents.compactMap { document in
-                return FriendsDataModel(document: document.data())
+            self.friendsList.removeAll()
+            
+            for document in documents {
+                do {
+                    // Attempt to decode document into ContactModel
+                    let contact = try document.data(as: FriendsDataModel.self)
+                    self.friendsList.append(contact)
+                    
+                } catch {
+                    print("Error decoding document: \(error.localizedDescription)")
+                }
             }
             
-            self.getFiiendsProfileData {
+            self.getFriendsProfileData {
                 completion()
             }
         }
     }
     
-    func getFiiendsProfileData(completion: @escaping () -> Void) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
+    
+    func getFriendsProfileData(completion: @escaping () -> Void) {
         
-        for index in 0..<friendsList.count {
+        let group = DispatchGroup()
+        let friendsCount = friendsList.count
+        
+        for index in 0..<friendsCount {
+            group.enter()
+            
             userReference.document(friendsList[index].receiverId).getDocument { document, error in
+                defer { group.leave() }
+                
                 if let error = error {
                     print("Error fetching friend's profile: \(error.localizedDescription)")
                     return
                 }
                 
-                guard let document else {
+                guard let document = document else {
+                    print("Document is nil")
                     return
                 }
                 
-                
-                guard let name = document["name"] as? String,
-                      let photoURLStr = document["profile_photo_url"] as? String else {
-                    return
-                }
-                
-                self.friendsList[index].name = name
-                self.friendsList[index].profilePhotoUrl = photoURLStr
-                
-                if index == self.friendsList.count - 1 {
-                    completion()
+                do {
+                    // Attempt to decode document into ContactModel
+                    let contact = try document.data(as: UserModel.self)
+                    self.friendsList[index].personalDetail = contact
+                } catch {
+                    print("Error decoding document: \(error.localizedDescription)")
                 }
             }
         }
-       
+        
+        group.notify(queue: .main) {
+            self.friendsList = self.friendsList.sorted(by: { $0.modifiedAt > $1.modifiedAt})
+            completion()
+        }
     }
+    
 }

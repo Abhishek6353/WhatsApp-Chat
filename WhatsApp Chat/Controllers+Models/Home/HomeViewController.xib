@@ -246,8 +246,11 @@
                                 <constraint firstAttribute="width" secondItem="Pow-ij-vk0" secondAttribute="height" multiplier="1:1" id="d9O-Lc-NP0"/>
                                 <constraint firstAttribute="width" constant="55" id="hRb-QZ-ksP"/>
                             </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="iconChat"/>
+                            <state key="normal" image="iconChat">
+                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
                             <connections>
                                 <action selector="addNewFriendButtonAction:" destination="-1" eventType="touchUpInside" id="MBY-yJ-07a"/>
                             </connections>

@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if Utility.valueFor(forKey: PreferenceKeys.isLogin.rawValue) as? Bool ?? false {
             mainNav = UINavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel(router: Router())))
+//            mainNav = UINavigationController(rootViewController: ProfileInfoViewController(viewModel: ProfileInfoViewModel(router: Router())))
         } else {
             mainNav = UINavigationController(rootViewController: WelcomeVC(welcomeViewModel: WelcomeViewModel(router: Router())))
         }

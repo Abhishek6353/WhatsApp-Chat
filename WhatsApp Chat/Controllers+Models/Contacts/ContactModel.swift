@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct ContactModel: Codable {
+struct UserModel: Codable {
     let name: String
+    let about: String
     let userID: String
     let profilePhotoUrl: String
     let countryCode: String
@@ -16,6 +17,7 @@ struct ContactModel: Codable {
     
     enum CodingKeys: String, CodingKey {
         case name
+        case about
         case userID = "user_id"
         case profilePhotoUrl = "profile_photo_url"
         case countryCode = "country_code"

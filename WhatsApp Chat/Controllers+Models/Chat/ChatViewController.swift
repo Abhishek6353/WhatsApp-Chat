@@ -39,13 +39,15 @@ class ChatViewController: UIViewController {
     //MARK: - VIew lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configure()
+        
+        
     }
     
     override func viewWillLayoutSubviews() {
         messageOptionsView.layer.cornerRadius = messageOptionsView.frame.height / 2
         btnSendMessage.layer.cornerRadius = btnSendMessage.frame.height / 2
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
     }
     
     //MARK: - Button actions
@@ -54,49 +56,47 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendButtonAction(_ sender: UIButton) {
-//        if sender.tag == 0 {
-//                
-//        } else {
-//            guard let text = messageTextField.text, !text.isEmpty else { return }
-//            viewModel.chatData[2].data.append(Chats(message: text, time: Utility.currentDate("hh:mm a"), type: "sent"))
-//            chatTableView.reloadData()
-//            scrollToBottom()
-//            
-//            messageTextField.text?.removeAll()
-//
-//        }
         viewModel.sendMessage(message: messageTextField.text ?? "")
     }
     
     
     //MARK: - Functions
     func configure() {
-//        chatTableView.delegate = self
-//        chatTableView.dataSource = self
+        chatTableView.delegate = self
+        chatTableView.dataSource = self
         chatTableView.showsHorizontalScrollIndicator = false
         chatTableView.showsVerticalScrollIndicator = false
         chatTableView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 25, right: 0)
         chatTableView.register(UINib(nibName: TextChatTableViewCell.className, bundle: nil), forCellReuseIdentifier: TextChatTableViewCell.className)
-        scrollToBottom()
+       
 
         messageTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         lblName.text = viewModel.receiverData.name
+        if let url = URL(string: viewModel.receiverData.profilePhotoUrl) {
+            profileImageView.sd_setImage(with: url)
+        }
         
         if let userID = Auth.auth().currentUser?.uid {
             viewModel.curentUserID = userID
         }
-        viewModel.channelId = Utility.getPrivateChannelId(otherUserId: viewModel.receiverData.userID, loginUserId: viewModel.curentUserID)
 
+        viewModel.fetchGroupChat {
+            self.chatTableView.reloadData()
+            self.scrollToBottom()
+        }
     }
     
     func scrollToBottom() {
         let lastSection = chatTableView.numberOfSections - 1
-        let lastRow = chatTableView.numberOfRows(inSection: lastSection) - 1
-        
-        if lastRow >= 0 && lastSection >= 0 {
-            chatTableView.scrollToRow(at: IndexPath(row: lastRow, section: lastSection), at: .top, animated: true)
+        if lastSection >= 0 {
+            let lastRow = chatTableView.numberOfRows(inSection: lastSection) - 1
+            
+            if lastRow >= 0 && lastSection >= 0 {
+                chatTableView.scrollToRow(at: IndexPath(row: lastRow, section: lastSection), at: .top, animated: true)
+            }
         }
+        messageTextField.text?.removeAll()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -107,41 +107,41 @@ class ChatViewController: UIViewController {
 
 
 //MARK: - Tableview delegate functions
-//extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
-//    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        viewModel.chatData.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        viewModel.chatData[section].data.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: TextChatTableViewCell.className, for: indexPath) as? TextChatTableViewCell else {
-//            return UITableViewCell()
-//        }
-//        cell.selectionStyle = .none
-//
-//        cell.chatData = viewModel.chatData[indexPath.section].data[indexPath.row]
-//        
-//        return cell
-//    }
-//    
-//    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        guard let headerView = Bundle.main.loadNibNamed(ChatTableHeaderView.className, owner: self, options: nil)?.first as? ChatTableHeaderView else {
-//            return UIView()
-//        }
-//        headerView.containerView.layer.cornerRadius = 5
-//        headerView.titleLabel.text = viewModel.chatData[section].date
-//        return headerView
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        34
-//    }
-//}
+extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        viewModel.groupMessageData?.chats?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.groupMessageData?.chats?[section].chatMessages.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TextChatTableViewCell.className, for: indexPath) as? TextChatTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.selectionStyle = .none
+
+        cell.chatData = viewModel.groupMessageData?.chats?[indexPath.section].chatMessages[indexPath.row]
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = Bundle.main.loadNibNamed(ChatTableHeaderView.className, owner: self, options: nil)?.first as? ChatTableHeaderView else {
+            return UIView()
+        }
+        headerView.containerView.layer.cornerRadius = 5
+        headerView.titleLabel.text = Utility.convertTimestamp(viewModel.groupMessageData!.chats![section].date, format: "dd MMM yyyy")
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        34
+    }
+}
 
 
 //MARK: - Textfield delegate methods

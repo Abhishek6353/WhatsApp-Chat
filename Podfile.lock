@@ -962,6 +962,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
     - RecaptchaInterop (~> 100.0)
+  - FirebaseAuthInterop (10.21.0)
   - FirebaseCore (10.21.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
@@ -991,6 +992,12 @@ PODS:
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30911.0, >= 2.30908.0)
   - FirebaseSharedSwift (10.28.0)
+  - FirebaseStorage (10.21.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - GoogleUtilities/AppDelegateSwizzler (7.12.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -1106,6 +1113,7 @@ DEPENDENCIES:
   - DPOTPView
   - FirebaseAuth
   - FirebaseFirestore
+  - FirebaseStorage
   - IQKeyboardManagerSwift
   - SDWebImage
   - SVProgressHUD
@@ -1118,12 +1126,14 @@ SPEC REPOS:
     - DPOTPView
     - FirebaseAppCheckInterop
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseFirestore
     - FirebaseFirestoreInternal
     - FirebaseSharedSwift
+    - FirebaseStorage
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -1143,12 +1153,14 @@ SPEC CHECKSUMS:
   DPOTPView: 28d8a0a84a2ff4b1e4a7712065aba1cbb14e2704
   FirebaseAppCheckInterop: 69fc7d8f6a1cbfa973efb8d1723651de30d12525
   FirebaseAuth: 3d872fbbfc4223edeb72769e488f325fa8b0a4a9
+  FirebaseAuthInterop: b4161d3e99b05d2d528d6ee2759bc55a01976eba
   FirebaseCore: 74f647ad9739ea75112ce6c3b3b91f5488ce1122
   FirebaseCoreExtension: 1c044fd46e95036cccb29134757c499613f3f564
   FirebaseCoreInternal: 43c1788eaeee9d1b97caaa751af567ce11010d00
   FirebaseFirestore: 55636df3da462136352b3465e26a86a988cc792c
   FirebaseFirestoreInternal: 354755e5745ca39862218087d9f754dde20f1059
   FirebaseSharedSwift: 48de4aec81a6b79bb30404e5e6db43ea74848fed
+  FirebaseStorage: 93d7a4b4ed8dea9b7295314fb3fcb7de4deb2ac6
   GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
   "gRPC-C++": e725ef63c4475d7cdb7e2cf16eb0fde84bd9ee51
   gRPC-Core: eee4be35df218649fe66d721a05a7f27a28f069b
@@ -1161,6 +1173,6 @@ SPEC CHECKSUMS:
   SDWebImage: dfe95b2466a9823cf9f0c6d01217c06550d7b29a
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
 
-PODFILE CHECKSUM: 9a2886fbc23df3accbab20fa089ab53298148a3c
+PODFILE CHECKSUM: a1d10bf2023ff1ba2f2562dfc9fae52e6bf181b9
 
 COCOAPODS: 1.15.2

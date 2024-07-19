@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46077E602C484591002FAC98 /* ChatDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46077E5F2C484591002FAC98 /* ChatDataModel.swift */; };
 		4628590B2C3876C4006954D6 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462859082C3876C4006954D6 /* LoginVC.swift */; };
 		4628590C2C3876C4006954D6 /* LoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 462859092C3876C4006954D6 /* LoginVC.xib */; };
 		4628590D2C3876C4006954D6 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4628590A2C3876C4006954D6 /* LoginViewModel.swift */; };
@@ -58,10 +59,14 @@
 		46B45F372C3B150E002B2190 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B45F352C3B150E002B2190 /* ContactsViewController.swift */; };
 		46B45F382C3B150E002B2190 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46B45F362C3B150E002B2190 /* ContactsViewController.xib */; };
 		46B45F3A2C3B177A002B2190 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B45F392C3B177A002B2190 /* ContactModel.swift */; };
+		46BD9D0E2C41A33D00035284 /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BD9D0C2C41A33C00035284 /* ProfileInfoViewController.swift */; };
+		46BD9D0F2C41A33D00035284 /* ProfileInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BD9D0D2C41A33D00035284 /* ProfileInfoViewController.xib */; };
+		46BD9D112C41A34A00035284 /* ProfileInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BD9D102C41A34A00035284 /* ProfileInfoViewModel.swift */; };
 		4852F1A6F630316BD5144AD6 /* Pods_WhatsApp_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F72CC1EBFBB9CD583BE3F5E /* Pods_WhatsApp_Chat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46077E5F2C484591002FAC98 /* ChatDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDataModel.swift; sourceTree = "<group>"; };
 		462859082C3876C4006954D6 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		462859092C3876C4006954D6 /* LoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginVC.xib; sourceTree = "<group>"; };
 		4628590A2C3876C4006954D6 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -115,6 +120,9 @@
 		46B45F352C3B150E002B2190 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		46B45F362C3B150E002B2190 /* ContactsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsViewController.xib; sourceTree = "<group>"; };
 		46B45F392C3B177A002B2190 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
+		46BD9D0C2C41A33C00035284 /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
+		46BD9D0D2C41A33D00035284 /* ProfileInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileInfoViewController.xib; sourceTree = "<group>"; };
+		46BD9D102C41A34A00035284 /* ProfileInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewModel.swift; sourceTree = "<group>"; };
 		70EF0CB066CA4D2B1FD6F60E /* Pods-WhatsApp Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsApp Chat.release.xcconfig"; path = "Target Support Files/Pods-WhatsApp Chat/Pods-WhatsApp Chat.release.xcconfig"; sourceTree = "<group>"; };
 		9F72CC1EBFBB9CD583BE3F5E /* Pods_WhatsApp_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatsApp_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCED0A4DA56A4D9905B6C01 /* Pods-WhatsApp Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsApp Chat.debug.xcconfig"; path = "Target Support Files/Pods-WhatsApp Chat/Pods-WhatsApp Chat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -177,6 +185,7 @@
 				4628591F2C3877B8006954D6 /* ChatViewController.swift */,
 				4628591E2C3877B8006954D6 /* ChatViewController.xib */,
 				4628591D2C3877B8006954D6 /* ChatViewModel.swift */,
+				46077E5F2C484591002FAC98 /* ChatDataModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -254,6 +263,7 @@
 				462859072C3876B3006954D6 /* Login */,
 				4628590E2C3876D7006954D6 /* Verify OTP */,
 				462859152C387777006954D6 /* Home */,
+				46BD9D0B2C41A32A00035284 /* ProfileInfo */,
 				4628591C2C38779C006954D6 /* Chat */,
 				46B45F322C3B14AB002B2190 /* Contacts */,
 			);
@@ -263,7 +273,7 @@
 		46B459BA2C38732100D72477 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				46B459E42C3875C500D72477 /* Structs */,
+				46B459E22C3875BC00D72477 /* Structs.swift */,
 				46B459E52C3875D100D72477 /* Enums.swift */,
 				46A058A72C3C655A00AF67E9 /* Constants.swift */,
 			);
@@ -324,14 +334,6 @@
 			path = Roboto;
 			sourceTree = "<group>";
 		};
-		46B459E42C3875C500D72477 /* Structs */ = {
-			isa = PBXGroup;
-			children = (
-				46B459E22C3875BC00D72477 /* Structs.swift */,
-			);
-			path = Structs;
-			sourceTree = "<group>";
-		};
 		46B459F12C38764400D72477 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +353,16 @@
 				46B45F392C3B177A002B2190 /* ContactModel.swift */,
 			);
 			path = Contacts;
+			sourceTree = "<group>";
+		};
+		46BD9D0B2C41A32A00035284 /* ProfileInfo */ = {
+			isa = PBXGroup;
+			children = (
+				46BD9D0C2C41A33C00035284 /* ProfileInfoViewController.swift */,
+				46BD9D0D2C41A33D00035284 /* ProfileInfoViewController.xib */,
+				46BD9D102C41A34A00035284 /* ProfileInfoViewModel.swift */,
+			);
+			path = ProfileInfo;
 			sourceTree = "<group>";
 		};
 		979180D10FADEC003E0E8774 /* Pods */ = {
@@ -427,6 +439,7 @@
 				4628592D2C387831006954D6 /* TextChatTableViewCell.xib in Resources */,
 				4628592E2C387831006954D6 /* ChatTableHeaderView.xib in Resources */,
 				46B459D32C38746100D72477 /* Roboto-ThinItalic.ttf in Resources */,
+				46BD9D0F2C41A33D00035284 /* ProfileInfoViewController.xib in Resources */,
 				46B459DB2C38746100D72477 /* Roboto-LightItalic.ttf in Resources */,
 				46B459D62C38746100D72477 /* Roboto-Italic.ttf in Resources */,
 				462859142C3876EC006954D6 /* OTPViewController.xib in Resources */,
@@ -504,10 +517,12 @@
 				4628591B2C387788006954D6 /* HomeViewModel.swift in Sources */,
 				46B459F72C38765100D72477 /* WelcomeVC.swift in Sources */,
 				46B45F372C3B150E002B2190 /* ContactsViewController.swift in Sources */,
+				46BD9D0E2C41A33D00035284 /* ProfileInfoViewController.swift in Sources */,
 				462859282C387808006954D6 /* ContactTableViewCell.swift in Sources */,
 				46A058A82C3C655A00AF67E9 /* Constants.swift in Sources */,
 				462859302C387831006954D6 /* ChatTableHeaderView.swift in Sources */,
 				46B45F3A2C3B177A002B2190 /* ContactModel.swift in Sources */,
+				46BD9D112C41A34A00035284 /* ProfileInfoViewModel.swift in Sources */,
 				46B459F62C38765100D72477 /* WelcomeViewModel.swift in Sources */,
 				46A058AA2C3C6C9B00AF67E9 /* HomeDataModel.swift in Sources */,
 				462859202C3877B8006954D6 /* ChatViewModel.swift in Sources */,
@@ -523,6 +538,7 @@
 				46B459A72C3872C000D72477 /* SceneDelegate.swift in Sources */,
 				46B459E62C3875D100D72477 /* Enums.swift in Sources */,
 				46B45F312C3AC649002B2190 /* Toast.swift in Sources */,
+				46077E602C484591002FAC98 /* ChatDataModel.swift in Sources */,
 				462859222C3877B8006954D6 /* ChatViewController.swift in Sources */,
 				46B459DD2C38752300D72477 /* Extensions.swift in Sources */,
 			);

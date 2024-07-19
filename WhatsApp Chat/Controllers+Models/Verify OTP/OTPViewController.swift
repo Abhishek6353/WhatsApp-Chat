@@ -67,7 +67,7 @@ class OTPViewController: UIViewController {
             
             switch result {
             case .success(_):
-                self.viewModel.router.redirectToHome()
+                self.viewModel.router.redirectToProfileInfo()
                 
             case .failure(let error):
                 self.view.makeToast(error.localizedDescription, position: .top)

@@ -30,6 +30,26 @@ class Utility: NSObject {
     }
     
     
+    class func convertTimestamp(_ timestamp: TimeInterval, format: String = "yyyy-MM-dd") -> String {
+        // Convert milliseconds to seconds
+        let timeInterval = TimeInterval(timestamp) / 1000
+        
+        // Create a Date object from the timestamp
+        let date = Date(timeIntervalSince1970: timeInterval)
+        
+        // Create a DateFormatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.timeZone = TimeZone.current
+        
+        // Convert the Date object to a readable string
+        let dateString = dateFormatter.string(from: date)
+        
+        return dateString
+    }
+
+
+    
     // to manage Userdefault
     class func setValuefor(_ value: Any, forKey key: String) {
         UserDefaults.standard.setValue(value, forKey: key)

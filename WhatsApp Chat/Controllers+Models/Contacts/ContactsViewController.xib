@@ -4,13 +4,20 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactsViewController" customModule="WhatsApp_Chat" customModuleProvider="target">
             <connections>
+                <outlet property="contactCountLabel" destination="MvC-UG-5a7" id="3Lw-fv-tYf"/>
                 <outlet property="contactsTableView" destination="3mP-kx-8kh" id="CcC-bV-pKe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,22 +28,71 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3mP-kx-8kh">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <rect key="frame" x="0.0" y="116" width="393" height="702"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TkI-c4-b8j">
+                    <rect key="frame" x="0.0" y="74" width="393" height="42"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OuT-pK-mum">
+                            <rect key="frame" x="15" y="0.0" width="363" height="33.666666666666664"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Select Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ErG-i2-USJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="363" height="19.333333333333332"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                    <color key="textColor" name="primaryText"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="0 contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MvC-UG-5a7">
+                                    <rect key="frame" x="0.0" y="19.333333333333329" width="363" height="14.333333333333336"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                                    <color key="textColor" name="#85959F"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8YY-r1-nW8">
+                            <rect key="frame" x="0.0" y="41.666666666666671" width="393" height="0.3333333333333357"/>
+                            <color key="backgroundColor" name="#85959F"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="JkN-1v-TLC"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="OuT-pK-mum" firstAttribute="top" secondItem="TkI-c4-b8j" secondAttribute="top" id="0Ow-HN-0lA"/>
+                        <constraint firstItem="8YY-r1-nW8" firstAttribute="leading" secondItem="TkI-c4-b8j" secondAttribute="leading" id="0vh-6d-CxR"/>
+                        <constraint firstItem="8YY-r1-nW8" firstAttribute="top" secondItem="OuT-pK-mum" secondAttribute="bottom" constant="7.6699999999999999" id="2zH-Sa-jOQ"/>
+                        <constraint firstAttribute="trailing" secondItem="8YY-r1-nW8" secondAttribute="trailing" id="GYg-ai-oba"/>
+                        <constraint firstAttribute="trailing" secondItem="OuT-pK-mum" secondAttribute="trailing" constant="15" id="V1K-3K-DYy"/>
+                        <constraint firstAttribute="height" constant="42" id="bBc-eJ-XhK"/>
+                        <constraint firstItem="OuT-pK-mum" firstAttribute="leading" secondItem="TkI-c4-b8j" secondAttribute="leading" constant="15" id="eke-ag-6wQ"/>
+                        <constraint firstAttribute="bottom" secondItem="8YY-r1-nW8" secondAttribute="bottom" id="xRe-YD-Wg2"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3mP-kx-8kh" secondAttribute="bottom" id="2v2-Xm-ue4"/>
-                <constraint firstItem="3mP-kx-8kh" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="T0r-dO-vFu"/>
+                <constraint firstItem="3mP-kx-8kh" firstAttribute="top" secondItem="TkI-c4-b8j" secondAttribute="bottom" id="Bwe-ew-fDq"/>
+                <constraint firstItem="TkI-c4-b8j" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="c3P-EE-h8g"/>
+                <constraint firstItem="TkI-c4-b8j" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="gAX-X2-0ES"/>
                 <constraint firstItem="3mP-kx-8kh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="iJk-fS-NQW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3mP-kx-8kh" secondAttribute="trailing" id="s8B-Sz-BEz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TkI-c4-b8j" secondAttribute="trailing" id="xEJ-PM-lU6"/>
             </constraints>
-            <point key="canvasLocation" x="-16" y="-11"/>
+            <point key="canvasLocation" x="-16.030534351145036" y="-11.267605633802818"/>
         </view>
     </objects>
     <resources>
+        <namedColor name="#85959F">
+            <color red="0.5220000147819519" green="0.58399999141693115" blue="0.62400001287460327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primaryText">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

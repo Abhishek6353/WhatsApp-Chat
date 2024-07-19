@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         configure()
         
-        viewModel.fetchFriendListner {
+        viewModel.fetchFriendListener {
             self.contactsTableView.reloadData()
         }
     }
@@ -85,8 +85,9 @@ class HomeViewController: UIViewController {
     @IBAction func addNewFriendButtonAction(_ sender: UIButton) {
         viewModel.router.redirectToContact()
     }
-    //MARK: - Functions
     
+    
+    //MARK: - Functions
     private func configure() {
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
@@ -99,14 +100,14 @@ class HomeViewController: UIViewController {
     
     private func showLogoutAlert() {
         let alertController = UIAlertController(
-            title: "Logout",
-            message: "Are you sure you want to logout?",
+            title: Constants.logoutStr,
+            message: Constants.sureToLogoutStr,
             preferredStyle: .alert
         )
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: Constants.cancelStr, style: .cancel, handler: nil)
 
-        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { _ in
+        let logoutAction = UIAlertAction(title: Constants.logoutStr, style: .destructive) { _ in
             // Perform logout action here, such as signing out the user
             Utility.showLoadingView()
             self.viewModel.signOut { result in
@@ -145,11 +146,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         let data = viewModel.friendsList[indexPath.row]
         
-        cell.data = data
+        cell.friendsData = data
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        viewModel.router.redirectToChat()
+        if let receiverData = self.viewModel.friendsList[indexPath.row].personalDetail {
+            viewModel.router.redirectToChat(receiverData: receiverData, channelID: self.viewModel.friendsList[indexPath.row].channelId)
+        }
     }
 }

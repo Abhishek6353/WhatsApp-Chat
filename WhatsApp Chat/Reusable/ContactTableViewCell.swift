@@ -10,9 +10,15 @@ import SDWebImage
 
 class ContactTableViewCell: UITableViewCell {
     
-    var data: FriendsDataModel? {
+    var contactData: UserModel? {
         didSet {
-            setData()
+            setContactData()
+        }
+    }
+    
+    var friendsData: FriendsDataModel? {
+        didSet {
+            setFriendsData()
         }
     }
     
@@ -27,7 +33,7 @@ class ContactTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,16 +42,31 @@ class ContactTableViewCell: UITableViewCell {
 
     }
     
-    func setData() {
-        guard let data else {
+    func setContactData() {
+        guard let data = contactData else {
             return
         }
         
         lblName.text = data.name
+        lblMessage.text = data.about
+        messageStatusImageView.isHidden = true
+        
+        if let imageURL = URL(string: data.profilePhotoUrl) {
+            profileImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "sampleProfile"))
+        }
+    }
+    
+    func setFriendsData() {
+        guard let data = friendsData else {
+            return
+        }
+        
+        lblName.text = data.personalDetail?.name
         lblMessage.text = data.message
         
-        if let imageURL = data.profilePhotoUrl {
-            profileImageView.sd_setImage(with: URL(string: imageURL), placeholderImage: UIImage(named: "sampleProfile"))
+        if let imageURLStr = data.personalDetail?.profilePhotoUrl, let imageURL = URL(string: imageURLStr) {
+            profileImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "sampleProfile"))
         }
+
     }
 }

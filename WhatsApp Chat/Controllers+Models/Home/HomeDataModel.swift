@@ -13,32 +13,9 @@ struct FriendsDataModel: Codable {
     let isDeleted: Bool
     let memberIds: [String]
     let message: String
-    let modifiedAt: Int
+    let modifiedAt: Double
     let receiverId: String
     let senderId: String
     
-    var name: String?
-    var profilePhotoUrl: String?
-    
-    init?(document: [String: Any]) {
-        guard let channelId = document["channelId"] as? String,
-              let createdAt = document["createdAt"] as? Int,
-              let isDeleted = document["isDeleted"] as? Bool,
-              let memberIds = document["memberIds"] as? [String],
-              let message = document["message"] as? String,
-              let modifiedAt = document["modifiedAt"] as? Int,
-              let receiverId = document["receiverId"] as? String,
-              let senderId = document["senderId"] as? String else {
-            return nil
-        }
-        
-        self.channelId = channelId
-        self.createdAt = createdAt
-        self.isDeleted = isDeleted
-        self.memberIds = memberIds
-        self.message = message
-        self.modifiedAt = modifiedAt
-        self.receiverId = receiverId
-        self.senderId = senderId
-    }
+    var personalDetail: UserModel?
 }

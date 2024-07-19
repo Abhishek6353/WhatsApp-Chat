@@ -13,9 +13,10 @@ protocol RouterProtocol {
     func redirectToLogin()
     func redirectToOTP(phoneNumber: String, coutryPhoneCode: String)
     func redirectToHome()
-    func redirectToChat(receiverData: ContactModel)
+    func redirectToChat(receiverData: UserModel, channelID: String)
     func redirectoWelcome()
     func redirectToContact()
+    func redirectToProfileInfo()
 }
 
 
@@ -36,11 +37,14 @@ class Router: RouterProtocol {
     
     func redirectToHome() {
         let vc = HomeViewController(viewModel: HomeViewModel(router: Router()))
-        SceneDelegate().sceneDelegate?.mainNav?.pushViewController(vc, animated: true)
+        SceneDelegate().sceneDelegate?.mainNav = UINavigationController(rootViewController: vc)
+        SceneDelegate().sceneDelegate?.mainNav?.navigationBar.isHidden = true
+        SceneDelegate().sceneDelegate?.window?.rootViewController = SceneDelegate().sceneDelegate?.mainNav
+        SceneDelegate().sceneDelegate?.window?.makeKeyAndVisible()
     }
     
-    func redirectToChat(receiverData: ContactModel) {
-        let vc = ChatViewController(viewModel: ChatViewModel(router: Router(), receiverData: receiverData))
+    func redirectToChat(receiverData: UserModel, channelID: String) {
+        let vc = ChatViewController(viewModel: ChatViewModel(router: Router(), receiverData: receiverData, channelID: channelID))
         SceneDelegate().sceneDelegate?.mainNav?.pushViewController(vc, animated: true)
     }
 
@@ -56,5 +60,10 @@ class Router: RouterProtocol {
         SceneDelegate().sceneDelegate?.mainNav?.navigationBar.isHidden = true
         SceneDelegate().sceneDelegate?.window?.rootViewController = SceneDelegate().sceneDelegate?.mainNav
         SceneDelegate().sceneDelegate?.window?.makeKeyAndVisible()
+    }
+    
+    func redirectToProfileInfo() {
+        let vc = ProfileInfoViewController(viewModel: ProfileInfoViewModel(router: Router()))
+        SceneDelegate().sceneDelegate?.mainNav?.pushViewController(vc, animated: true)
     }
 }
