@@ -76,11 +76,14 @@ class HomeViewModel: HomeProtocol {
         
         let group = DispatchGroup()
         let friendsCount = friendsList.count
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         
         for index in 0..<friendsCount {
             group.enter()
             
-            userReference.document(friendsList[index].receiverId).getDocument { document, error in
+            let friendsUserID = friendsList[index].receiverId == userID ? friendsList[index].senderId : friendsList[index].receiverId
+            
+            userReference.document(friendsUserID).getDocument { document, error in
                 defer { group.leave() }
                 
                 if let error = error {
