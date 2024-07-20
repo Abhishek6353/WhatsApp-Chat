@@ -63,6 +63,7 @@ class ContactTableViewCell: UITableViewCell {
         
         lblName.text = data.personalDetail?.name
         lblMessage.text = data.message
+        messageStatusImageView.isHidden = true
         
         if let imageURLStr = data.personalDetail?.profilePhotoUrl, let imageURL = URL(string: imageURLStr) {
             profileImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "sampleProfile"))

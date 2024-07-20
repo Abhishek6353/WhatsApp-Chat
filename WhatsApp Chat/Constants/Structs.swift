@@ -19,6 +19,9 @@ struct Constants {
     static let cameraStr = "Camera"
     static let chooseFromStr = "Choose a picture from library or camera"
     static let pickPhotoStr = "Pick a Photo"
+    static let sentStr = "Sent"
+    static let receivedStr = "Received"
+    static let seenStr = "Seen"
     
 
 }
@@ -63,6 +66,7 @@ struct Keys {
     static let roomId = "roomId"
     static let unreadCount = "unreadCount"
     static let lastSeen = "lastSeen"
+    static let messageStatus = "messageStatus"
     
     
 }

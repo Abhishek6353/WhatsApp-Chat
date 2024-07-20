@@ -79,7 +79,7 @@ class ProfileInfoViewModel: ProfileInfoProtocol {
                 self.updatePrfileDataToFirestore(name: name, about: about, imageURL: "\(imageURL)")
             }
         } else {
-            self.updatePrfileDataToFirestore(name: name, about: about)
+            self.updatePrfileDataToFirestore(name: name, about: about, imageURL: "https://firebasestorage.googleapis.com/v0/b/whatsapp-chat-d83e5.appspot.com/o/Images%2FProfile%2Fperson.png?alt=media&token=d2612f68-bbc2-4c70-be72-3ed7919501d1")
         }
     }
     
