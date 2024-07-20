@@ -81,7 +81,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         let channelId = Utility.getPrivateChannelId(otherUserId: receiverData.userID, loginUserId: userID)
 
         SceneDelegate().sceneDelegate?.mainNav?.dismiss(animated: true, completion: {
-            self.viewModel.router.redirectToChat(receiverData: self.viewModel.contacts[indexPath.row], channelID: channelId)
+            self.viewModel.router.redirectToChat(revceiversUserID: self.viewModel.contacts[indexPath.row].userID, channelID: channelId)
         })
     }
 }

@@ -152,7 +152,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let receiverData = self.viewModel.friendsList[indexPath.row].personalDetail {
-            viewModel.router.redirectToChat(receiverData: receiverData, channelID: self.viewModel.friendsList[indexPath.row].channelId)
+            viewModel.router.redirectToChat(revceiversUserID: receiverData.userID, channelID: self.viewModel.friendsList[indexPath.row].channelId)
         }
     }
 }

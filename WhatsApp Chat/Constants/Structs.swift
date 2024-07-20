@@ -62,6 +62,7 @@ struct Keys {
     static let muteTill = "muteTill"
     static let roomId = "roomId"
     static let unreadCount = "unreadCount"
+    static let lastSeen = "lastSeen"
     
     
 }

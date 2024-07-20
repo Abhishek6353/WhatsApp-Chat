@@ -13,33 +13,35 @@ protocol ChatProtocol {
     var channelId: String { get }
     var curentUserID: String! { get set }
     var groupMessageData: GroupMessage? { get }
-    var receiverData: UserModel { get }
+    var revceiversUserID: String { get }
+    var receiverData: UserModel? { get }
     var chatMembewrData: ChatMemberData? { get }
     
     func sendMessage(message: String)
     func fetchGroupChat(completion: @escaping () -> Void)
-    func updateOnlineStatus(isOnline: Bool)
     func updateUnreadCount()
     func stopListningForGroupChat()
     func fetchChatMemberData(completion: @escaping () -> Void)
+    func fetchReceiverProfileData(completion: @escaping () -> Void)
 }
 
 
 class ChatViewModel: ChatProtocol {
     
     var router: RouterProtocol
-    var receiverData: UserModel
+    var revceiversUserID: String
     
     var channelId : String
     var curentUserID : String!
     var groupMessageData: GroupMessage?
     var chatMembewrData: ChatMemberData?
+    var receiverData: UserModel?
 
     var listeners: [ListenerRegistration] = []
 
-    init(router: RouterProtocol, receiverData: UserModel, channelID: String) {
+    init(router: RouterProtocol, revceiversUserID: String, channelID: String) {
         self.router = router
-        self.receiverData = receiverData
+        self.revceiversUserID = revceiversUserID
         self.channelId = channelID
     }
     
@@ -65,7 +67,7 @@ class ChatViewModel: ChatProtocol {
     
     
     func createNewChannel(message: String) {
-        let memberIDs = [curentUserID, receiverData.userID]
+        let memberIDs = [curentUserID, revceiversUserID]
         let currentTime = Utility.getCurrentTime()
         
         let dict: [String: Any] = [
@@ -75,7 +77,7 @@ class ChatViewModel: ChatProtocol {
             Keys.memberIds: memberIDs,
             Keys.message: message,
             Keys.modifiedAt: currentTime,
-            Keys.receiverId: receiverData.userID,
+            Keys.receiverId: revceiversUserID,
             Keys.senderId: curentUserID ?? ""
         ]
         
@@ -119,13 +121,12 @@ class ChatViewModel: ChatProtocol {
     
     func addChatMemberData() {
         
-        for memberId in [curentUserID, receiverData.userID] {
+        for memberId in [curentUserID, revceiversUserID] {
             let dict: [String: Any] = [
                 Keys.isOnline: memberId == curentUserID ? true : false,
                 Keys.memberId: memberId ?? "",
                 Keys.muteTill: 0,
                 Keys.roomId: channelId,
-//                Keys.unreadCount: memberId == curentUserID ? 0 : 1,
             ]
             
             chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(memberId ?? "").setData(dict)
@@ -203,7 +204,7 @@ class ChatViewModel: ChatProtocol {
     }
 
     func fetchChatMemberData(completion: @escaping () -> Void) {
-       let listner = chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).whereField(Keys.memberId, isEqualTo: receiverData.userID).addSnapshotListener { [weak self] querySnapshot, error in
+       let listner = chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).whereField(Keys.memberId, isEqualTo: revceiversUserID).addSnapshotListener { [weak self] querySnapshot, error in
            guard let self = self else { return }
            
            if let error = error {
@@ -228,17 +229,36 @@ class ChatViewModel: ChatProtocol {
         listeners.append(listner)
     }
     
+    func fetchReceiverProfileData(completion: @escaping () -> Void) {
+        userReference.document(revceiversUserID).addSnapshotListener { documentSnapshot, error in
+            if let error = error {
+                print("Error fetching receivers profile data \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = documentSnapshot else {
+                print("No data found for receivers profile data")
+                return
+            }
+            
+            do {
+                self.receiverData = try document.data(as: UserModel.self)
+                completion()
+            } catch {
+                print("Error decoding receiver's profile data \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    
     func updateReadCount() {
-        chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(receiverData.userID).updateData([Keys.unreadCount: FieldValue.increment(Int64(1))]) { error in
+        chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(revceiversUserID).updateData([Keys.unreadCount: FieldValue.increment(Int64(1))]) { error in
             if let error = error {
                 print("Error updating document: \(error.localizedDescription)")
             }
         }
     }
     
-    func updateOnlineStatus(isOnline: Bool) {
-        chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(curentUserID).updateData([Keys.isOnline: isOnline])
-    }
     
     func updateUnreadCount() {
         chatChannelReference.document(channelId).collection(Keys.subNodeChatMemberData).document(curentUserID).updateData([Keys.unreadCount: 0])

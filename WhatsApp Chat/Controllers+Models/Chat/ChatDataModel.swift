@@ -43,7 +43,6 @@ struct GroupMessage: Codable {
 
 
 struct ChatMemberData: Codable {
-    var isOnline: Bool
     var memberId: String
     var muteTill: Int
     var roomId: String

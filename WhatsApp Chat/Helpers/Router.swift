@@ -13,7 +13,7 @@ protocol RouterProtocol {
     func redirectToLogin()
     func redirectToOTP(phoneNumber: String, coutryPhoneCode: String)
     func redirectToHome()
-    func redirectToChat(receiverData: UserModel, channelID: String)
+    func redirectToChat(revceiversUserID: String, channelID: String)
     func redirectoWelcome()
     func redirectToContact()
     func redirectToProfileInfo()
@@ -43,8 +43,8 @@ class Router: RouterProtocol {
         SceneDelegate().sceneDelegate?.window?.makeKeyAndVisible()
     }
     
-    func redirectToChat(receiverData: UserModel, channelID: String) {
-        let vc = ChatViewController(viewModel: ChatViewModel(router: Router(), receiverData: receiverData, channelID: channelID))
+    func redirectToChat(revceiversUserID: String, channelID: String) {
+        let vc = ChatViewController(viewModel: ChatViewModel(router: Router(), revceiversUserID: revceiversUserID, channelID: channelID))
         SceneDelegate().sceneDelegate?.mainNav?.pushViewController(vc, animated: true)
     }
 

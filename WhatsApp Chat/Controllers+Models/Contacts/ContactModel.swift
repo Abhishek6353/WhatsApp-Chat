@@ -14,7 +14,9 @@ struct UserModel: Codable {
     let profilePhotoUrl: String
     let countryCode: String
     let phoneNumber: String
-    
+    let isOnline: Bool
+    let lastSeen: TimeInterval
+
     enum CodingKeys: String, CodingKey {
         case name
         case about
@@ -22,5 +24,8 @@ struct UserModel: Codable {
         case profilePhotoUrl = "profile_photo_url"
         case countryCode = "country_code"
         case phoneNumber = "phone_number"
+        case isOnline
+        case lastSeen
+
     }
 }

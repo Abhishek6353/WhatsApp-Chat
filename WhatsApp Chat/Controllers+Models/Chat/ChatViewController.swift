@@ -48,12 +48,8 @@ class ChatViewController: UIViewController {
         configure()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        viewModel.updateOnlineStatus(isOnline: true)
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
-        viewModel.updateOnlineStatus(isOnline: false)
         viewModel.stopListningForGroupChat()
     }
     
@@ -85,17 +81,17 @@ class ChatViewController: UIViewController {
 
         messageTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
-        lblName.text = viewModel.receiverData.name
         
-        if let url = URL(string: viewModel.receiverData.profilePhotoUrl) {
-            profileImageView.sd_setImage(with: url)
+        viewModel.fetchReceiverProfileData {
+            self.lblName.text = self.viewModel.receiverData?.name
+            self.lblStatus.text = self.viewModel.receiverData?.isOnline ?? false ? "Online" : "Last seen \(Utility.convertTimestamp(self.viewModel.receiverData?.lastSeen ?? 0, format: "dd MMM, hh:mm"))"
+            
+            if let url = URL(string: self.viewModel.receiverData?.profilePhotoUrl ?? "") {
+                self.profileImageView.sd_setImage(with: url)
+            }
         }
         
         
-        viewModel.fetchChatMemberData {
-            self.lblStatus.text = self.viewModel.chatMembewrData?.isOnline ?? false ? "Online" : ""
-        }
-
         viewModel.fetchGroupChat {
             self.chatTableView.reloadData()
             self.scrollToBottom()
