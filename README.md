@@ -35,16 +35,18 @@ Welcome to the WhatsApp Chat project! This project is an iOS application that re
    ```bash
    git clone https://github.com/Abhishek6353/WhatsApp-Chat.git
    cd WhatsApp-Chat
+   ```
 
 2. Install Dependencies:
 
    ```bash
    pod install
+   ```
 
 3. Configure Firebase:
  - Create a new project in the Firebase Console.
  - Add an iOS app to your Firebase project.
- - Download the GoogleService-Info.plist file and add it to the root of your Xcode project.
+ - Download the `GoogleService-Info.plist` file and add it to the root of your Xcode project.
  - Enable Firebase Authentication, Firestore, and Storage in the Firebase Console.
 
 
@@ -52,9 +54,12 @@ Welcome to the WhatsApp Chat project! This project is an iOS application that re
 
    ```bash
    open WhatsApp-Chat.xcworkspace
+   ```
 
 
 5. Build and run the app:
  - Select your target device or simulator.
  - Click the "Run" button in Xcode.
 
+
+## Thank you !
